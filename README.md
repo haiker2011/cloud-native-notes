@@ -71,7 +71,7 @@
 
   消息处理模型、使用场景、可靠性
 
-- [RPC](https://github.com/haiker2011/cloud-native-notes/blob/master/docs/notes/PRC.md)
+- [RPC](https://github.com/haiker2011/cloud-native-notes/blob/master/docs/notes/RPC.md)
 
   PRC概念和原理,主要通过gRPC来学习。
 
