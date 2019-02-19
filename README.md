@@ -82,6 +82,18 @@
 
   一些 Git 的使用和概念。
 
+- [Rancher](https://github.com/haiker2011/cloud-native-notes/blob/master/docs/notes/Rancher.md)
+
+  Rancher 使用。
+
+- [Jenkins](https://github.com/haiker2011/cloud-native-notes/blob/master/docs/notes/Jenkins.md)
+
+  Jenkins 使用。
+
+- [Kubeflow](https://github.com/haiker2011/cloud-native-notes/blob/master/docs/notes/Kubeflow.md)
+
+  Kubeflow 使用。
+
 
 
 ### :cloud: 云原生
