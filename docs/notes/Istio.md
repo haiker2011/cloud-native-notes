@@ -104,7 +104,7 @@ Istio 服务网格逻辑上分为数据平面和控制平面。
 
 * 控制平面负责管理和配置代理来路由流量。此外控制平面配置 Mixer 以实施策略和收集遥测数据。
 
-![架构](../pics/arch.svg)
+<div align="center" > <img src="../pics/arch.svg"  width="80%" alt="基于 Istio 的应用程序架构概览" caption="Istio 架构"> </div><br>
 
 ### Envoy
 Istio 使用 Envoy 代理的扩展版本，Envoy 是以 C++ 开发的高性能代理，用于调解服务网格中所有服务的所有入站和出站流量。Envoy 的许多内置功能被 Istio 发扬光大，例如：

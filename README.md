@@ -102,10 +102,6 @@
 
   软件定义网络概念和原理。
 
-- [Envoy](https://github.com/haiker2011/cloud-native-notes/blob/master/docs/notes/Envoy.md)
-
-  Envoy概念和原理。
-
 - [Docker](https://github.com/haiker2011/cloud-native-notes/blob/master/docs/notes/Docker.md)
 
   Docker 基本原理。
@@ -118,9 +114,13 @@
 
   Istio 基本原理。
 
+- [Envoy](https://github.com/haiker2011/cloud-native-notes/blob/master/docs/notes/Envoy.md)
+
+  Envoy概念和原理。
+
 
 
 
 #### 致谢
-本项目是受CyC2018同学的[CS-Notes项目](https://github.com/CyC2018/CS-Notes)启发，项目结构和图标来源于作者的启发。谢谢CyC2018同学的无私分享。
+1. 本项目是受CyC2018同学的[CS-Notes项目](https://github.com/CyC2018/CS-Notes)启发，项目结构和图标来源于作者的启发。谢谢CyC2018同学的无私分享。
 
