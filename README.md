@@ -23,7 +23,7 @@
 
  - [数据结构](https://github.com/haiker2011/cloud-native-notes/blob/master/docs/notes/数据结构.md)
 
-  经典的数据结构，包含链表、二叉树、图等。
+   经典的数据结构，包含链表、二叉树、图等。
    
 
 ### :computer: 操作系统
