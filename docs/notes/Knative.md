@@ -166,7 +166,7 @@ spec:
 * 根据需求自动伸缩和调整工作负载
 * 使用蓝绿部署路由和管理流量
 
-<span id="fingure-2-2">*图 2-2 显示 Autoscaler 和 Activator 如何和 Routes 及 Revisions 协同工作。*</span>
+<span id="fingure-2-2">*Autoscaler 和 Activator 如何和 Routes 及 Revisions 协同工作。*</span>
 
 <div align="center">
 <img src="https://ws2.sinaimg.cn/large/006tKfTcly1g0yrmo1t2cj31z70u0afi.jpg" alt="Autoscaler and Activator with Route and Revision" />
@@ -179,6 +179,67 @@ Autoscaler 和 Activator 如何和 Routes 及 Revisions 互动。
 >
 > 如果 6 秒窗口的平均并发量两次到达期望目标，Autoscaler 转换为 Panic Mode 并使用 6 秒时间窗。这让它更加快捷的响应瞬间流量的增长。它也仅仅在 Panic Mode 期间扩容以防止 Pod 数量快速波动。如果超过 60 秒没有扩容发生，Autoscaler 会转换回 Stable Mode。
 
+<span id="fingure-2-2">*Autoscaler 和 Activator 如何和 Routes 及 Revisions 协同工作。*</span>
+
+<div align="center">
+<img src="https://ws1.sinaimg.cn/large/006tKfTcly1g0yrpiumcqj31230u0jxo.jpg" alt="Knative Serving Object" />
+Knative Serving 对象模型
+</div>
+
+#### 配置
+
+示例 2-1. knative-helloworld/configuration.yml
+
+```yaml
+apiVersion: serving.knative.dev/v1alpha1
+kind: Configuration
+metadata:
+  name: knative-helloworld
+  namespace: default
+spec:
+  revisionTemplate:
+    spec:
+      container:
+        image: docker.io/gswk/knative-helloworld:latest
+        env:
+          - name: MESSAGE
+            value: "Knative!"
+```
+
+#### 路由
+
+示例 2-4. knative-helloworld/route.yml
+
+```yaml
+apiVersion: serving.knative.dev/v1alpha1
+kind: Route
+metadata:
+  name: knative-helloworld
+  namespace: default
+spec:
+  traffic:
+  - configurationName: knative-helloworld
+percent: 100
+```
+
+#### 服务
+
+示例 2-8. knative-helloworld/service.yml
+
+```yaml
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: knative-helloworld
+  namespace: default
+spec:
+  runLatest:
+    configuration:
+      revisionTemplate:
+        spec:
+          container:
+            image: docker.io/gswk/knative-helloworld:latest
+```
 
 ### Eventing
 
@@ -186,6 +247,141 @@ Autoscaler 和 Activator 如何和 Routes 及 Revisions 互动。
 * 将服务绑定到事件
 * 对发布/订阅细节进行抽象
 * 帮助开发人员摆脱相关负担
+
+#### Source（源）
+
+例3-1: knative-eventhing-demo/app.go
+
+```go
+package main
+
+import (
+    "fmt"
+    "io/ioutil"
+    "log"
+    "net/http"
+)
+
+func handlePost(rw http.ResponseWriter, req *http.Request) {
+    defer req.Body.Close()
+    body, _ := ioutil.ReadAll(req.Body)
+    fmt.Fprintf(rw, "%s", body)
+    log.Printf("%s", body)
+}
+func main() {
+    log.Print("Starting server on port 8080...")
+    http.HandleFunc("/", handlePost)
+    log.Fatal(http.ListenAndServe(":8080", nil))
+}
+```
+
+例3-2： knative-eventing-demo/service.yaml
+
+```yaml
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: knative-eventing-demo
+spec:
+  runLatest:
+    configuration:
+      revisionTemplate:
+        spec:
+          container:
+            image: docker.io/gswk/knative-eventing-demo:latest
+```
+
+例3-3: knative-eventing-demo/serviceaccount.yaml
+
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: events-sa
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  creationTimestamp: null
+  name: event-watcher
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - get
+  - list
+  - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  creationTimestamp: null
+  name: k8s-ra-event-watcher
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: event-watcher
+subjects:
+- kind: ServiceAccount
+  name: events-sa
+  namespace: default
+```
+
+例3-4: knative-eventing-demo/source.yaml
+
+```yaml
+apiVersion: sources.eventing.knative.dev/v1alpha1
+kind: KubernetesEventSource
+metadata:
+  name: k8sevents
+spec:
+  namespace: default
+  serviceAccountName: events-sa
+  sink:
+    apiVersion: eventing.knative.dev/v1alpha1
+    kind: Channel
+    name: knative-eventing-demo-channel
+```
+
+#### Channel（通道）
+
+例3-5: knative-eventing-demo/channel.yaml
+
+```yaml
+apiVersion: eventing.knative.dev/v1alpha1
+kind: Channel
+metadata:
+  name: knative-eventing-demo-channel
+spec:
+  provisioner:
+    apiVersion: eventing.knative.dev/v1alpha1
+    kind: ClusterChannelProvisioner
+    name: in-memory-channel
+```
+
+#### Subscriptions（订阅）
+
+例3-6: knative-eventing-demo/subscription.yaml
+
+```yaml
+apiVersion: eventing.knative.dev/v1alpha1
+kind: Subscription
+metadata:
+  name: knative-eventing-demo-subscription
+spec:
+  channel:
+    apiVersion: eventing.knative.dev/v1alpha1
+    kind: Channel
+    name: knative-eventing-demo-channel
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1alpha1
+      kind: Service
+      name: knative-eventing-demo
+```
 
 ## Knative 分析
 
