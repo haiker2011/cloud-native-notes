@@ -118,6 +118,10 @@
 
   Istio 基本原理。
 
+- [Knative](https://github.com/haiker2011/cloud-native-notes/blob/master/docs/notes/Knative.md)
+
+  Knative 学习笔记
+
 - [Envoy](https://github.com/haiker2011/cloud-native-notes/blob/master/docs/notes/Envoy.md)
 
   Envoy概念和原理。
