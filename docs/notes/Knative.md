@@ -16,6 +16,150 @@ Knative 是谷歌牵头发起的 serverless 项目，希望通过提供一套简
 * 提供标准化可移植的方法。
 * 定义和运行集群上的容器镜像构建。
 
+* Build
+
+> 驱动构建过程的自定义 Kubernetes 资源。在定义构建时，您将定义如何获取源代码以及如何创建将运行源代码的容器镜像。
+
+* Build Template
+
+> 封装可重复构建步骤集合并允许对构建进行参数化的模板。
+
+* Service Account
+
+>允许对私有资源（如 Git 存储库或容器镜像库）进行身份验证。
+
+1. Service Account
+
+Example 1-1. knative-build-demo/secret.yaml
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dockerhub-account
+  annotations:
+    build.knative.dev/docker-0: https://index.docker.io/v1/
+type: kubernetes.io/basic-auth
+data:
+  # 'echo -n "username" | base64'
+  username: dXNlcm5hbWUK
+  # 'echo -n "password" | base64'
+  password: cGFzc3dvcmQK
+```
+
+Example 1-2. knative-build-demo/serviceaccount.yaml
+
+```yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: build-bot
+secrets:
+- name: dockerhub-account
+```
+
+2. Build Resource
+
+Example 1-3. knative-helloworld/app.go
+
+```go
+package main
+
+import (
+    "fmt"
+    "log"
+    "net/http"
+)
+
+func handlePost(rw http.ResponseWriter, req *http.Request) {
+    fmt.Fprintf(rw, "%s", "Hello from Knative!")
+}
+
+func main() {
+    log.Print("Starting server on port 8080...")
+    http.HandleFunc("/", handlePost)
+    log.Fatal(http.ListenAndServe(":8080", nil))
+}
+```
+
+Example 1-4. knative-helloworld/Dockerfile
+
+```dockerfile
+FROM golang
+
+ADD . /knative-build-demo
+WORKDIR /knative-build-demo
+
+RUN go build
+
+ENTRYPOINT ./knative-build-demo
+EXPOSE 8080
+```
+
+Example 1-5. knative-build-demo/service.yaml
+
+```yaml
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: knative-build-demo
+  namespace: default
+spec:
+  runLatest:
+    configuration:
+      build:
+        serviceAccountName: build-bot
+        source:
+          git:
+            url: https://github.com/gswk/knative-helloworld.git
+            revision: master
+         template:
+           name: kaniko
+           arguments:
+           - name: IMAGE
+             value: docker.io/gswk/knative-build-demo:latest
+      revisionTemplate:
+        spec:
+          container:
+            image: docker.io/gswk/knative-build-demo:latest
+```
+
+3. Build Template
+
+* Kaniko
+
+> 在运行的容器中构建容器镜像，而不依赖于运行 Docker daemon 。
+
+* Jib
+
+> 为Java应用程序构建容器镜像。
+
+* Buildpack
+
+> 自动检测应用程序的运行时，并建立一个容器镜像使用 Cloud Foundry Buildpack。
+
+Example 1-6. https://github.com/knative/build-templates/blob/master/kaniko/kaniko.yaml
+
+```yaml
+apiVersion: build.knative.dev/v1alpha1
+kind: BuildTemplate
+metadata:
+  name: kaniko
+spec:
+  parameters:
+  - name: IMAGE
+    description: The name of the image to push
+  - name: DOCKERFILE
+    description: Path to the Dockerfile to build.
+    default: /workspace/Dockerfile
+  steps:
+  - name: build-and-push
+    image: gcr.io/kaniko-project/executor
+    args:
+    - --dockerfile=${DOCKERFILE}
+    - --destination=${IMAGE}
+```
+
 ### Serving
 
 * 请求驱动计算，可以收缩到零
@@ -29,11 +173,10 @@ Knative 是谷歌牵头发起的 serverless 项目，希望通过提供一套简
 Autoscaler 和 Activator 如何和 Routes 及 Revisions 互动。
 </div>
 
-
 > Autoscaler 如何伸缩
-
+>
 > Autoscaler 采用的伸缩算法针对两个独立的时间间隔计算所有数据点的平均值。它维护两个时间窗，分别是 60 秒和 6 秒。Autoscaler 使用这些数据以两种模式运作：Stable Mode (稳定模式) 和 Panic Mode (忙乱模式)。在 Stable 模式下，它使用 60 秒时间窗平均值决定如何伸缩部署以满足期望的并发量。
-
+>
 > 如果 6 秒窗口的平均并发量两次到达期望目标，Autoscaler 转换为 Panic Mode 并使用 6 秒时间窗。这让它更加快捷的响应瞬间流量的增长。它也仅仅在 Panic Mode 期间扩容以防止 Pod 数量快速波动。如果超过 60 秒没有扩容发生，Autoscaler 会转换回 Stable Mode。
 
 
@@ -50,7 +193,14 @@ Autoscaler 和 Activator 如何和 Routes 及 Revisions 互动。
 
 ### 性能问题
 
-### 
+* 0到1的伸缩
+* 网络链路过长
+
+### 替换 Queue Proxy 为 Istio 的 sidecar 
+
+### 替换 Autoscaler 的实现为 k8s 的 HPA
+
+### 更多的事件源和消息系统
 
 ## 和机器学习的联姻
 
