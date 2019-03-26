@@ -364,6 +364,14 @@ spec:
 
 #### Subscriptions（订阅）
 
+<span id="fingure-2-2">*事件传递示意图*</span>
+
+<div align="center">
+<img src="https://wx1.sinaimg.cn/large/72bc86eagy1g0yx7pxes1j20q30ao74u.jpg" alt="事件传递示意图" />
+事件传递示意图
+</div>
+
+
 例3-6: knative-eventing-demo/subscription.yaml
 
 ```yaml
