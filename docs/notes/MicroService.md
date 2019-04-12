@@ -140,4 +140,8 @@ https://martinfowler.com/articles/dont-start-monolith.html
 
 **Summary**: A great article that takes a very different route than the others, and advocates starting immediately with microservices if that is the way you are going, not monolithic decomposition.
 
-[Microservices -- Not a free lunch!](http://highscalability.com/blog/2014/4/8/microservices-not-a-free-lunch.html) by Benjamin Wooton.
+## Benjamin W (2014). “Microservices -- Not a free lunch!”.
+
+http://highscalability.com/blog/2014/4/8/microservices-not-a-free-lunch.html
+
+**Summary**: ...
