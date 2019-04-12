@@ -8,6 +8,10 @@ Ch. 1, sections 1.1,1.3, 1.4.
 
 **Summary**: The first chapter of this Redbook is entitled “Motivation for microservices”, and covers the basics of what they are, the benefits and the pitfalls of using them, and shows how microservices differ from SOA – a topic that is not covered in this course, but which is good background information. You can download the entire Redbook for free, and this is a reference that we shall use throughout the course.
 
+Ch1. Section 1.2
+
+**Summary**: The authors talk about microservices from the perspective of the developer, the tester, the business owner, and service management. In particular, they place emphasis on small teams and communication between team members.
+
 ## Jones, T (2017). “So You’re Thinking of Decomposing Your Monolith into Microservices.”
 
 https://blog.codeship.com/so-youre-thinking-of-decomposing-your-monolith-into-microservices/#disqus_thread
@@ -19,14 +23,6 @@ https://blog.codeship.com/so-youre-thinking-of-decomposing-your-monolith-into-mi
 https://www.infoq.com/articles/microservices-intro
 
 **Summary**: This article goes into depth on the pros and cons of decomposition. The numerous diagrams are very helpful to understanding the big picture.
-
-## Daya, S. et al. (2015). “Microservices from Theory to Practice.” IBM Redbook (SG24-8275-00).
-
-https://www.redbooks.ibm.com/redbooks.nsf/RedbookAbstracts/sg248275.html
-
-Ch1. Section 1.2
-
-**Summary**: The authors talk about microservices from the perspective of the developer, the tester, the business owner, and service management. In particular, they place emphasis on small teams and communication between team members.
 
 ## Gehani, N (2017). “Want to develop great microservices? Reorganize your team.”
 
@@ -80,15 +76,7 @@ https://arxiv.org/abs/1609.05830v2
 
 You can download a PDF from the link on the right of the article page.
 
-**Summary**: The circuit breaker is described in great detail. Service discovery and the API gateway are discussed in the next lessons.
-
-## Montesi, F.; Weber, J. (2016). “Circuit Breakers, Discovery, and API Gateways in Microservices.”
-
-https://arxiv.org/abs/1609.05830v2
-
-If you downloaded the reading assignments for "Characteristics of a microservices application", you already have this article.
-
-**Summary**: The circuit breaker was discussed in lesson 4 as part of communications. The API gateway is a part of this lesson, and service discovery is discussed in the next.
+**Summary**: The circuit breaker is described in great detail. Service discovery and the API gateway are discussed in the next lessons.The circuit breaker was discussed in lesson 4 as part of communications. The API gateway is a part of this lesson, and service discovery is discussed in the next.
 
 ## Torre, C. de la; Jones, M. (2017). “Communication in a microservice architecture.”
 
@@ -101,14 +89,6 @@ https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/arch
 https://www.nginx.com/blog/building-microservices-using-an-api-gateway/
 
 **Summary**: This page gives numerous examples, which are backed up with illustrations. This is a very useful article to reinforce the concepts presented in the video.
-
-## Montesi, F.; Weber, J. (2016). “Circuit Breakers, Discovery, and API Gateways in Microservices.”
-
-https://arxiv.org/abs/1609.05830v2
-
-If you have done the previous reading assignments, you will already have this article.
-
-**Summary**: This is the third time this article is useful! Here you will find more detailed information about service discovery.
 
 ## Peyrott, Sebastián (2015). “An Introduction to Microservices, Part 3: The Service Registry.”
 
@@ -127,12 +107,6 @@ https://smartbear.com/learn/api-design/what-are-microservices/
 https://dzone.com/articles/microservices-architecture-what-when-how
 
 **Summary**: An overview article. What I like about it in particular is that it examines the problems of microservices architecture (‘Bad Parts’).
-
-## Gehani, N (2017). “Want to develop great microservices? Reorganize your team.”
-
-https://techbeacon.com/want-develop-great-microservices-reorganize-your-team
-
-**Summary**: The article stresses the idea of using Conway’s Law as a basis for team organization. This article was also referenced in the previous module.
 
 ## Tikov, S (2015). “Don’t start with a monolith”.
 
