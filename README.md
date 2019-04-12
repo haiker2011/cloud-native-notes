@@ -1,11 +1,10 @@
 # cloud-native-notes
-云原生技术面试必备基础知识
 
+云原生技术面试必备基础知识
 
 | Ⅰ | Ⅱ | Ⅲ | Ⅳ | V | VI |
 | :--------: | :---------: | :---------: | :---------: | :---------: | :---------: |
 | 数据结构与算法[:pencil2:](#pencil2-算法) | 操作系统[:computer:](#computer-操作系统)| 网络[:cloud:](#cloud-网络) |  系统设计[:bulb:](#bulb-系统设计)| 工具[:hammer:](#hammer-工具)| 云原生[:cloud:](#cloud-云原生) |
-
 
 ### :pencil2: 算法
   
@@ -17,7 +16,6 @@
 
    经典的数据结构，包含链表、二叉树、图等。
    
-
 ### :computer: 操作系统
 
 - [计算机操作系统](https://github.com/CyC2018/CS-Notes/blob/master/docs/notes/计算机操作系统.md)
@@ -41,8 +39,6 @@
 - [Socket](https://github.com/CyC2018/CS-Notes/blob/master/docs/notes/Socket.md)
 
   I/O 模型、I/O 多路复用。
-
-
 
 ### :bulb: 系统设计 
 
@@ -71,7 +67,6 @@
 
   PRC概念和原理,主要通过gRPC来学习。
 
-
 ### :hammer: 工具 
 
 - [Git](https://github.com/haiker2011/cloud-native-notes/blob/master/docs/notes/Git.md)
@@ -89,8 +84,6 @@
 - [Kubeflow](https://github.com/haiker2011/cloud-native-notes/blob/master/docs/notes/Kubeflow.md)
 
   Kubeflow 使用。
-
-
 
 ### :cloud: 云原生
 
@@ -110,21 +103,19 @@
 
   Kubernetes 基本原理。
 
+  - [Envoy](https://github.com/haiker2011/cloud-native-notes/blob/master/docs/notes/Envoy.md)
+
+  Envoy概念和原理。
+
 - [Istio](https://github.com/haiker2011/cloud-native-notes/blob/master/docs/notes/Istio.md)
 
   Istio 基本原理。
 
 - [Knative](https://github.com/haiker2011/cloud-native-notes/blob/master/docs/notes/Knative.md)
 
-  Knative 学习笔记
-
-- [Envoy](https://github.com/haiker2011/cloud-native-notes/blob/master/docs/notes/Envoy.md)
-
-  Envoy概念和原理。
-
-
-
+  Knative 学习笔记。
 
 #### 致谢
+
 1. 本项目是受CyC2018同学的[CS-Notes项目](https://github.com/CyC2018/CS-Notes)启发，项目结构和图标来源于作者的启发。谢谢CyC2018同学的无私分享。
 
