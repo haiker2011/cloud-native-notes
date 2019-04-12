@@ -103,7 +103,7 @@
 
   Kubernetes 基本原理。
 
-  - [Envoy](https://github.com/haiker2011/cloud-native-notes/blob/master/docs/notes/Envoy.md)
+- [Envoy](https://github.com/haiker2011/cloud-native-notes/blob/master/docs/notes/Envoy.md)
 
   Envoy概念和原理。
 
