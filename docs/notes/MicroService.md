@@ -119,3 +119,21 @@ https://martinfowler.com/articles/dont-start-monolith.html
 http://highscalability.com/blog/2014/4/8/microservices-not-a-free-lunch.html
 
 **Summary**: ...
+
+## Fowler, M (2014). “You must be this tall to use microservices”.
+
+https://martinfowler.com/bliki/MicroservicePrerequisites.html
+
+**Summary**: If you don't have certain baseline competencies(**Rapid provisioning**、**Basic Monitoring**、**Rapid application deployment**), you shouldn't consider using the microservice style.
+
+## Fowler, M (2014). “Deployment Pipeline”.
+
+https://martinfowler.com/bliki/DeploymentPipeline.html
+
+**Summary**: A deployment pipeline is a way to deal with this by breaking up your build into stages. Each stage provides increasing confidence, usually at the cost of extra time. 
+
+##  Jason M (2017). “IBM, Google and Lyft give microservices a ride on the Istio Service Mesh ”.
+
+https://developer.ibm.com/dwblog/2017/istio/
+
+**Summary**: Istio is the result of a joint collaboration between IBM, Google and Lyft as a means to support traffic flow management, access policy enforcement and the telemetry data aggregation between microservices. It does all this without requiring developers to make changes to application code by building on earlier work from IBM, Google and Lyft.
