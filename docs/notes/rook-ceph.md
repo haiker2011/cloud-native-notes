@@ -1,5 +1,7 @@
 # 使用Rook安装Ceph存储
 
+本文介绍了如何在minikube搭建的k8s上如何部署ceph存储。首先介绍了minikube的安装方法，然后使用minikube来创建k8s伪分布式集群。然后在上面使用Rook来部署ceph存储集群。
+
 ## 安装MiniKube
 
 ### 安装VirtualBox
@@ -103,7 +105,7 @@ kubectl create -f operator.yaml
 kubectl create -f cluster.yaml
 ```
 
-[注]
+> **注释**
 
 ```yaml
 apiVersion: ceph.rook.io/v1
@@ -164,6 +166,8 @@ wp-pv-claim      Bound     pvc-39e43169-efc1-11e6-bc9a-0cc47a3459ee   20Gi      
 ```
 
 ## 添加监控
+
+
 
 ## 参考文献
 
