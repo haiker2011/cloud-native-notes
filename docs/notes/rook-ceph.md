@@ -2,9 +2,9 @@
 
 本文介绍了如何在minikube搭建的k8s上如何部署ceph存储。首先介绍了minikube的安装方法，然后使用minikube来创建k8s伪分布式集群。然后在上面使用Rook来部署ceph存储集群。
 
-![](https://ws1.sinaimg.cn/large/006gLaqLly1g25f7nmftyj31kw0w0dm8.jpg)
+![Rook架构图](https://ws1.sinaimg.cn/large/006gLaqLly1g25f7nmftyj31kw0w0dm8.jpg)
 
-![](https://ws1.sinaimg.cn/large/006gLaqLly1g25fa3j0wsj31sg0wk0yb.jpg)
+![Rook架构图](https://ws1.sinaimg.cn/large/006gLaqLly1g25fa3j0wsj31sg0wk0yb.jpg)
 
 什么是Rook？
 > Rook是一款云原生环境下的开源分布式存储编排系统，目前已进入CNCF孵化。Rook将分布式存储软件转变为自我管理，自我缩放和自我修复的存储服务。它通过自动化部署，引导、配置、供应、扩展、升级、迁移、灾难恢复、监控和资源管理来实现。 Rook使用基础的云原生容器管理、调度和编排平台提供的功能来履行其职责。
@@ -13,75 +13,73 @@
 >
 > Ceph是一个分布式存储系统，提供文件、数据块和对象存储，可以部署在大型生产集群中。
 
-![](https://ws1.sinaimg.cn/large/006gLaqLly1g25fd6p5sbj30d90hfjuo.jpg)
+![ceph架构图](https://ws1.sinaimg.cn/large/006gLaqLly1g25fd6p5sbj30d90hfjuo.jpg)
 
-![](https://ws1.sinaimg.cn/large/006gLaqLly1g25fdnnwjcj30j90dm0sw.jpg)
+![ceph架构图](https://ws1.sinaimg.cn/large/006gLaqLly1g25fdnnwjcj30j90dm0sw.jpg)
 
 ## 安装MiniKube
 
 ### 安装VirtualBox
 
-Step 1: Update Ubuntu
-Before installing VirtualBox, run the commands below to update Ubuntu server.
+Step 1: 更新 Ubuntu
+安装 VirtualBox 之前， 首先运行以下命令更新 Ubuntu server。
 
 ```shell
 sudo apt-get update && sudo apt-get dist-upgrade && sudo apt-get autoremove
 ```
 
-Step 2: Install Required Linux Headers
-Now that your system is updated, run the commands below to install required Ubuntu linux headers.
+Step 2: 安装需要的 Linux Headers
+更新系统之后， 运行以下命令安装需要的 Ubuntu linux headers。
 
 ```shell
 sudo apt-get -y install gcc make linux-headers-$(uname -r) dkms
 ```
 
-Step 3: Add VirtualBox Repository and key
-After installing the required package above, run the commands below to install VirtualBox repository key.
+Step 3: 添加 VirtualBox Repository and key
+安装完上面需要的安装包之后， 运行以下命令安装 VirtualBox repository key。
 
 ```shell
 wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
 wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
 ```
 
-Next run the commands below to add VirtualBox repository to your system.
+接下来运行下面的命令添加 VirtualBox repository 到您的系统中。
 
 ```shell
 sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian $(lsb_release -sc) contrib" >> /etc/apt/sources.list'
 ```
 
-Step 4: Install VirtualBox
-After adding the repository and key, run the commands below to install VirtualBox 5.1. At the time of this writing the latest version of the software was 5.1. If there are newer versions available, please replace the one below with the current latest.
+Step 4: 安装 VirtualBox
+添加 repository and key 之后， 运行以下命令安装 VirtualBox 5.1。
 
 ```shell
 sudo apt-get update
 sudo apt-get install virtualbox-5.2
 ```
 
-To verify if VirtualBox is installed, run the commands below.
+验证 VirtualBox 是否成功安装，运行以下命令。
 
 ```shell
 VBoxManage -v
 ```
 
-Step 5: Install VirtualBox Extension Pack
-Everytime you install VirtualBox make sure to install the extension pack as well. The pack enables VRDP (Virtual Remote Desktop Protocol) and many other enhancements.
+Step 5: 安装 VirtualBox Extension Pack
+每次安装 VirtualBox 请确保 Extension Pack 也已成功安装， The pack 开启 VRDP (Virtual Remote Desktop Protocol) 和其他提升。
 
-To install it, run the commands below
+运行以下命令进行安装
 
 ```shell
 curl -O http://download.virtualbox.org/virtualbox/5.2.0/Oracle_VM_VirtualBox_Extension_Pack-5.2.0-118431.vbox-extpack
 sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack-5.2.0-118431.vbox-extpack
 ```
 
-Agree to the terms and install.
-
-Run the commands below to view the extension pack installed.
+运行以下命令查看 extension pack 是否已经安装成功。
 
 ```shell
 VBoxManage list extpacks
 ```
 
-The results should look like the one below:
+最终结果应该像下面这样。
 
 ```shell
 Successfully installed "Oracle VM VirtualBox Extension Pack".
@@ -232,18 +230,18 @@ wp-pv-claim      Bound     pvc-39e43169-efc1-11e6-bc9a-0cc47a3459ee   20Gi      
 
 ## 参考文献
 
-1. https://my.oschina.net/u/2306127/blog/2051740
+1. <https://my.oschina.net/u/2306127/blog/2051740>
 
-2. https://rook.github.io/docs/rook/master/ceph-quickstart.html
+2. <https://rook.github.io/docs/rook/master/ceph-quickstart.html>
 
-3. https://yq.aliyun.com/articles/221687
+3. <https://yq.aliyun.com/articles/221687>
 
-4. https://github.com/AliyunContainerService/minikube
+4. <https://github.com/AliyunContainerService/minikube>
 
-5. https://websiteforstudents.com/installing-virtualbox-5-2-ubuntu-17-04-17-10/
+5. <https://websiteforstudents.com/installing-virtualbox-5-2-ubuntu-17-04-17-10/>
 
-6. https://jimmysong.io/kubernetes-handbook/practice/rook.html
+6. <https://jimmysong.io/kubernetes-handbook/practice/rook.html>
 
-7. http://docs.ceph.com/docs/mimic/architecture/
+7. <http://docs.ceph.com/docs/mimic/architecture/>
 
-8. https://subscription.packtpub.com/book/virtualization_and_cloud/9781783985623/3/ch03lvl1sec27/ceph-storage-architecture
+8. <https://subscription.packtpub.com/book/virtualization_and_cloud/9781783985623/3/ch03lvl1sec27/ceph-storage-architecture>
