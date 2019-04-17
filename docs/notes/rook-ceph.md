@@ -2,6 +2,21 @@
 
 本文介绍了如何在minikube搭建的k8s上如何部署ceph存储。首先介绍了minikube的安装方法，然后使用minikube来创建k8s伪分布式集群。然后在上面使用Rook来部署ceph存储集群。
 
+![](https://ws1.sinaimg.cn/large/006gLaqLly1g25f7nmftyj31kw0w0dm8.jpg)
+
+![](https://ws1.sinaimg.cn/large/006gLaqLly1g25fa3j0wsj31sg0wk0yb.jpg)
+
+什么是Rook？
+> Rook是一款云原生环境下的开源分布式存储编排系统，目前已进入CNCF孵化。Rook将分布式存储软件转变为自我管理，自我缩放和自我修复的存储服务。它通过自动化部署，引导、配置、供应、扩展、升级、迁移、灾难恢复、监控和资源管理来实现。 Rook使用基础的云原生容器管理、调度和编排平台提供的功能来履行其职责。
+>
+> Rook利用扩展点深入融入云原生环境，为调度、生命周期管理、资源管理、安全性、监控和用户体验提供无缝体验。
+>
+> Ceph是一个分布式存储系统，提供文件、数据块和对象存储，可以部署在大型生产集群中。
+
+![](https://ws1.sinaimg.cn/large/006gLaqLly1g25fd6p5sbj30d90hfjuo.jpg)
+
+![](https://ws1.sinaimg.cn/large/006gLaqLly1g25fdnnwjcj30j90dm0sw.jpg)
+
 ## 安装MiniKube
 
 ### 安装VirtualBox
@@ -151,6 +166,52 @@ spec:
     useAllDevices: true
 ```
 
+使用下面的命令部署工具pod：
+
+```shell
+kubectl apply -f rook-tools.yaml
+```
+
+这是一个独立的pod，没有使用其他高级的controller来管理，我们将它部署在rook-system的namespace下。
+
+```shell
+kubectl -n rook exec -it rook-tools bash
+```
+
+使用下面的命令查看rook集群状态。
+
+```shell
+$ rookctl status
+OVERALL STATUS: OK
+
+USAGE:
+TOTAL       USED       DATA      AVAILABLE
+37.95 GiB   1.50 GiB   0 B       36.45 GiB
+
+MONITORS:
+NAME             ADDRESS                IN QUORUM   STATUS
+rook-ceph-mon0   10.254.162.99:6790/0   true        UNKNOWN
+
+MGRs:
+NAME             STATUS
+rook-ceph-mgr0   Active
+
+OSDs:
+TOTAL     UP        IN        FULL      NEAR FULL
+1         1         1         false     false
+
+PLACEMENT GROUPS (0 total):
+STATE     COUNT
+none
+
+$ ceph df
+GLOBAL:
+    SIZE       AVAIL      RAW USED     %RAW USED
+    38861M     37323M        1537M          3.96
+POOLS:
+    NAME     ID     USED     %USED     MAX AVAIL     OBJECTS
+```
+
 ```shell
 kubectl create -f storageclass.yaml
 
@@ -180,3 +241,9 @@ wp-pv-claim      Bound     pvc-39e43169-efc1-11e6-bc9a-0cc47a3459ee   20Gi      
 4. https://github.com/AliyunContainerService/minikube
 
 5. https://websiteforstudents.com/installing-virtualbox-5-2-ubuntu-17-04-17-10/
+
+6. https://jimmysong.io/kubernetes-handbook/practice/rook.html
+
+7. http://docs.ceph.com/docs/mimic/architecture/
+
+8. https://subscription.packtpub.com/book/virtualization_and_cloud/9781783985623/3/ch03lvl1sec27/ceph-storage-architecture
