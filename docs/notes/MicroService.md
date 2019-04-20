@@ -137,3 +137,9 @@ https://martinfowler.com/bliki/DeploymentPipeline.html
 https://developer.ibm.com/dwblog/2017/istio/
 
 **Summary**: Istio is the result of a joint collaboration between IBM, Google and Lyft as a means to support traffic flow management, access policy enforcement and the telemetry data aggregation between microservices. It does all this without requiring developers to make changes to application code by building on earlier work from IBM, Google and Lyft.
+
+## Fowler, M (2015). “Monolith First”.
+
+https://martinfowler.com/bliki/MonolithFirst.html
+
+**Summary**:  you shouldn't start a new project with microservices, even if you're sure your application will be big enough to make it worthwhile.
