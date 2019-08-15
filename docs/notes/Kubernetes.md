@@ -19,6 +19,12 @@
 
 ### [kube-ladder](https://github.com/caicloud/kube-ladder)
 
+### [what-happens-when-k8s](https://github.com/jamiehannaford/what-happens-when-k8s)
+
+### [follow-me-install-kubernetes-cluster](https://github.com/opsnull/follow-me-install-kubernetes-cluster)
+
+### [k8s-source-code-analysis](https://github.com/farmer-hutao/k8s-source-code-analysis)
+
 ## 图书
 
 ### [Kubernetes指南](https://kubernetes.feisky.xyz/)
