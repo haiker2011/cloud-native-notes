@@ -36,3 +36,7 @@
 ### [Kubernetes进阶实战](https://book.douban.com/subject/30435129/)
 
 ## 公众号
+
+## 在线课程
+
+### [云原生技术公开课](https://edu.aliyun.com/roadmap/cloudnative?spm=a2c6h.13122660.1380764.1.58a67f44ahqvCv)
